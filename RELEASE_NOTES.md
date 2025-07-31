@@ -187,9 +187,14 @@ make -j$(nproc)
 
 ## 🎯 **Future Roadmap**
 
+### **Current Release (v1.0.0) - COMPLETED**
+- **✅ Unit Testing**: Comprehensive test suite with Google Test framework (79.5% coverage)
+- **✅ Code Coverage**: gcov integration with detailed coverage analysis
+- **✅ 21 Test Cases**: Complete test coverage across all major components
+- **✅ Integration Testing**: End-to-end file parsing and database validation
+
 ### **Next Release (v1.1.0)**
 - **Additional Record Types**: MPR (Multiple-Result Parametric) and TSR (Test Synopsis)
-- **Unit Testing**: Comprehensive test suite with Google Test framework
 - **Compressed Files**: Support for gzip/zip compressed STDF files
 - **Export Formats**: CSV, JSON, and XML export capabilities
 

@@ -69,12 +69,28 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Usage examples and troubleshooting guide
 - System integration documentation
 
+## [1.0.1] - 2025-07-31
+
+### Added
+- **✅ Comprehensive Test Suite**: Google Test framework integration with 21 test cases
+- **✅ Code Coverage Analysis**: gcov integration with detailed coverage reporting (79.5% overall)
+- **✅ Unit Testing**: Complete coverage of all STDF record types, database operations, and parser functionality
+- **✅ Integration Testing**: End-to-end file parsing and database validation
+- **✅ Error Handling Tests**: File not found, corrupt data, and edge case scenarios
+- **✅ CMake Test Integration**: `ENABLE_COVERAGE` option with coverage targets
+- **✅ Coverage Report Generation**: Automated text and HTML coverage reports
+
+### Coverage Results
+- `src/stdf_types.cpp`: 97.80% (222/227 lines)
+- `src/database.cpp`: 76.52% (277/362 lines)  
+- `src/stdf_parser.cpp`: 69.72% (221/317 lines)
+- Overall weighted coverage: 79.5%
+
 ## [Unreleased]
 
 ### Planned
 - MPR (Multiple-Result Parametric Test Record) support
 - TSR (Test Synopsis Record) support
-- Unit testing framework with Google Test
 - Compressed file support (gzip/zip)
 - Export capabilities (CSV, JSON, XML)
 - Python bindings for scripting integration

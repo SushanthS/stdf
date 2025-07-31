@@ -1,0 +1,47 @@
+# Build directories and artifacts
+build/
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+Makefile
+*.cmake
+
+# Output directories (at project root)
+# bin/
+# lib/
+
+# Compiled object files and libraries
+*.o
+# *.a
+*.so
+*.dll
+*.exe
+*.out
+
+# Coverage and test artifacts
+*.gcov
+*.gcda
+*.gcno
+coverage_html/
+coverage.info
+coverage_report.txt
+
+# Generated data and databases
+# data/*.stdf
+# data/*.db
+# *.db
+# *.stdf
+
+# Test results
+*.xml
+*.log
+
+# Editor/IDE files
+*.swp
+*.swo
+*.vscode/
+.idea/
+.DS_Store
+
+# Ignore test binaries
+# stdf_tests

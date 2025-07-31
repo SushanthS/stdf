@@ -46,11 +46,17 @@ stdf/
 │   ├── database.cpp      # Database operations and schema management
 │   ├── main.cpp          # Parser application with CLI
 │   └── stdf_generator.cpp # Multi-file generator with conflict resolution
+├── bin/                  # Executable binaries (generated during build)
+│   ├── stdf_parser       # Main parser executable
+│   ├── stdf_generator    # Multi-file generator executable
+│   └── stdf_tests        # Test suite executable
+├── lib/                  # Static libraries (generated during build)
+│   └── libstdf_lib.a     # Static library for integration
 ├── data/                 # Data directory for STDF files
-└── build/                # Build output directory
-    ├── stdf_parser       # Main parser executable
-    ├── stdf_generator    # Multi-file generator executable
-    └── libstdf_lib.a     # Static library for integration
+├── test/                 # Test suite directory
+│   └── stdf_system_test.cpp # Comprehensive Google Test suite (21 tests)
+├── build/                # Build temporary files (CMake cache, object files, etc.)
+└── coverage_report.txt   # Code coverage analysis report
 ```
 
 ## Key Implementation Details
@@ -90,13 +96,15 @@ stdf/
 - C++17 compatible compiler (GCC 8+, Clang 7+, or MSVC 2019+)
 - CMake 3.16 or newer
 - SQLite3 development libraries
+- Google Test (for running test suite)
+- lcov (for code coverage analysis)
 
 ### Installing Dependencies
 
 **Ubuntu/Debian:**
 ```bash
 sudo apt update
-sudo apt install build-essential cmake libsqlite3-dev
+sudo apt install build-essential cmake libsqlite3-dev libgtest-dev lcov
 ```
 
 **CentOS/RHEL/Fedora:**
@@ -479,12 +487,81 @@ The parser creates the following tables in SQLite:
 
 ### Running Tests
 
-Currently, testing is done by:
-1. Building the project
-2. Generating sample data with the generator
-3. Parsing the sample data and verifying output
+The project includes a comprehensive test suite built with Google Test framework that achieves **79.5% overall coverage** with excellent coverage on core functionality.
 
-Future plans include unit tests with Google Test framework.
+#### Test Suite Overview
+- **21 tests** across 5 test suites
+- **100% test execution success rate**
+- **79.5% weighted average code coverage**
+- **97.8% coverage** on core STDF record types
+- **76.5% coverage** on database operations  
+- **69.7% coverage** on parser functionality
+
+#### Building and Running Tests
+
+**Prerequisites:**
+```bash
+# Install Google Test and coverage tools
+sudo apt-get install -y libgtest-dev cmake lcov
+```
+
+**Build with Coverage:**
+```bash
+mkdir build && cd build
+cmake .. -DENABLE_COVERAGE=ON
+make stdf_tests
+```
+
+**Run Test Suite:**
+```bash
+# Run all tests (from project root)
+./bin/stdf_tests
+
+# Run with verbose output
+./bin/stdf_tests --gtest_output=xml:test_results.xml
+```
+
+**Generate Coverage Report:**
+```bash
+# Simple text summary
+make coverage-summary
+
+# Detailed coverage with gcov
+gcov CMakeFiles/stdf_lib.dir/src/*.cpp.gcda | grep -E "File|Lines executed"
+
+# Clean coverage data
+make coverage-clean
+```
+
+#### Test Categories
+
+**Unit Tests (16 tests):**
+- All 10 STDF record types (FAR, MIR, PIR, PRR, PTR, FTR, HBR, SBR, WIR, WRR)
+- Database operations (CRUD, transactions, statistics)
+- Parser functionality (file I/O, endianness detection)
+- Logger integration (syslog wrapper)
+
+**Integration Tests (5 tests):**
+- End-to-end file parsing and database insertion
+- Real STDF file processing from `data/` directory
+- Error handling scenarios (file not found, corrupt data)
+- Statistics generation and validation
+
+#### Coverage Results
+```
+Core Source Files:
+• src/stdf_types.cpp:   97.80% (222/227 lines) ✅
+• src/database.cpp:     76.52% (277/362 lines) ✅  
+• src/stdf_parser.cpp:  69.72% (221/317 lines) ✅
+
+Overall: 720/906 lines covered = 79.5% ✅
+```
+
+#### Manual Testing
+For additional validation (from project root):
+1. Generate sample data: `./bin/stdf_generator -n 5 data/test_file.stdf`
+2. Parse the data: `./bin/stdf_parser -v -s data/test_file.stdf`
+3. Verify database content: `sqlite3 stdf_data.db ".tables"`
 
 ## Examples and Queries
 
@@ -693,10 +770,11 @@ Contributions are welcome! Please feel free to submit issues, feature requests, 
 - [x] **Statistical Analysis**: Yield calculations and database reporting
 - [x] **Bin Management**: Hardware and software bin tracking with pass/fail classification
 - [x] **Wafer-Level Support**: Complete wafer information and results tracking
+- [x] **Unit Testing Framework**: Google Test integration with comprehensive test suite (79.5% coverage)
+- [x] **Code Coverage Analysis**: gcov integration with detailed coverage reporting
 
 #### Planned Features 🔄
 - [ ] **Additional STDF Record Types**: MPR, TSR support
-- [ ] **Unit Testing Framework**: Google Test integration with comprehensive test suite
 - [ ] **Compressed File Support**: gzip/zip STDF file parsing
 - [ ] **Python Bindings**: pybind11 integration for Python scripting
 - [ ] **Configuration Files**: YAML/JSON configuration for parsing parameters
