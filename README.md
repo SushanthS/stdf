@@ -6,6 +6,8 @@ A complete, high-performance C++ implementation for parsing Standard Test Data F
 
 STDF (Standard Test Data Format) is a binary file format commonly used in the semiconductor industry for storing test data from Automated Test Equipment (ATE). This project provides a production-ready C++ library and command-line tool suite for parsing STDF files, storing extracted data in SQLite databases, and generating realistic test datasets.
 
+**🤖 AI-Assisted Development**: This entire project was developed using **AI-assisted development** with **Cursor IDE** and **Claude-4-Sonnet**. The complete codebase, build system, test suite, and documentation were generated through natural language specifications and iterative refinement—showcasing the power of conversational software development without writing traditional code line-by-line.
+
 ## Features
 
 ### Core Functionality
